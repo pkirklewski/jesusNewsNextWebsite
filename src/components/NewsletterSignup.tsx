@@ -3,102 +3,59 @@
 import { useState } from 'react'
 import { Mail, ArrowRight, Check, AlertCircle } from 'lucide-react'
 
-const API_URL = 'https://jesusnews-api.kirklewskis.workers.dev'
+// For POC — points to MailerLite form page until we add a Cloudflare Worker endpoint.
+// For now, clicking the button redirects to the existing WordPress signup page.
+const SIGNUP_URL = 'https://www.jesusnews.pl/newsletter-zapisz-sie-juz-teraz/'
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'verify' | 'already' | 'error'>('idle')
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!email) return
-
-    setStatus('loading')
-
-    try {
-      const res = await fetch(`${API_URL}/api/subscribe`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-
-      const data = await res.json()
-
-      if (data.needsVerification) {
-        setStatus('verify')
-        setEmail('')
-      } else if (res.ok && data.message?.includes('Już')) {
-        setStatus('already')
-      } else if (res.ok) {
-        setStatus('verify')
-        setEmail('')
-      } else {
-        setStatus('error')
-      }
-    } catch {
-      setStatus('error')
+    if (!email) {
+      window.open(SIGNUP_URL, '_blank')
+      return
     }
+    // Pre-fill email param if MailerLite form supports it
+    const url = `${SIGNUP_URL}?email=${encodeURIComponent(email)}`
+    window.open(url, '_blank')
   }
 
   return (
-    <section className="bg-gradient-to-br from-card via-card to-accent/5 border border-border rounded-2xl p-8 lg:p-12">
-      <div className="max-w-2xl mx-auto text-center">
-        <div className="inline-flex items-center justify-center w-14 h-14 bg-accent/10 rounded-xl mb-6">
-          <Mail className="w-7 h-7 text-accent" />
+    <section className="bg-parchment border border-rule p-8 lg:p-12">
+      <div className="max-w-3xl mx-auto text-center">
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-oxblood mb-5">
+          <Mail className="w-6 h-6 text-paper" strokeWidth={1.5} />
         </div>
-
-        <h2 className="text-2xl lg:text-3xl font-bold text-text-primary mb-3">
-          Zasubskrybuj newsletter JesusNews
+        <div className="eyebrow mb-3">Codzienny newsletter</div>
+        <h2 className="font-display text-3xl lg:text-4xl font-semibold text-ink leading-tight mb-4">
+          Słowo Boże — prosto do Twojej skrzynki o&nbsp;7:00 rano.
         </h2>
-
-        <p className="text-text-secondary mb-8 max-w-lg mx-auto">
-          Otrzymuj codzienne podsumowanie najważniejszych wiadomości ze świata
-          kryptowalut. Bez spamu, z możliwością rezygnacji w każdej chwili.
+        <p className="font-serif text-lg text-graphite leading-relaxed max-w-xl mx-auto mb-7">
+          Krótki werset, rozważanie, modlitwa i jedna dobra wiadomość ze świata wiary.
+          Trzy minuty kawy. Bezpłatnie.
         </p>
 
-        {status === 'verify' ? (
-          <div className="flex flex-col items-center space-y-2 text-green-400">
-            <Mail className="w-8 h-8" />
-            <span className="font-medium">Sprawdź swoją skrzynkę email!</span>
-            <span className="text-text-secondary text-sm">Wysłaliśmy link potwierdzający. Kliknij go, aby aktywować newsletter.</span>
-          </div>
-        ) : status === 'already' ? (
-          <div className="flex items-center justify-center space-x-2 text-accent">
-            <Check className="w-5 h-5" />
-            <span className="font-medium">Już jesteś zapisany!</span>
-          </div>
-        ) : (
-          <>
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-            >
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Twój adres e-mail"
-                required
-                disabled={status === 'loading'}
-                className="newsletter-input flex-1 bg-background border border-border rounded-xl px-4 py-3 text-text-primary placeholder:text-text-secondary/50 text-sm disabled:opacity-50"
-              />
-              <button
-                type="submit"
-                disabled={status === 'loading'}
-                className="bg-accent hover:bg-accent/90 text-background font-semibold px-6 py-3 rounded-xl text-sm flex items-center justify-center space-x-2 whitespace-nowrap disabled:opacity-50"
-              >
-                <span>{status === 'loading' ? 'Zapisuję...' : 'Zapisz się'}</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </form>
-            {status === 'error' && (
-              <div className="flex items-center justify-center space-x-2 text-red-400 mt-3">
-                <AlertCircle className="w-4 h-4" />
-                <span className="text-sm">Wystąpił błąd. Spróbuj ponownie.</span>
-              </div>
-            )}
-          </>
-        )}
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+        >
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="twoj@email.pl"
+            className="flex-1 px-4 py-3 bg-paper border border-rule text-ink font-serif text-base placeholder:text-sepia focus:outline-none focus:border-oxblood transition-colors"
+          />
+          <button type="submit" className="btn-primary justify-center sm:flex-shrink-0">
+            Zasubskrybuj
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </form>
+
+        <p className="font-sans text-xs text-sepia mt-4 tracking-[0.04em]">
+          Bez spamu. Możesz wypisać się jednym kliknięciem.
+        </p>
       </div>
     </section>
   )

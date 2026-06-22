@@ -1,15 +1,11 @@
 import Link from 'next/link'
 
 const categories = [
-  { slug: 'wszystko', label: 'Wszystko', href: '/' },
-  { slug: 'bitcoin', label: 'Bitcoin', href: '/kategoria/bitcoin' },
-  { slug: 'ethereum', label: 'Ethereum', href: '/kategoria/ethereum' },
-  { slug: 'defi', label: 'DeFi', href: '/kategoria/defi' },
-  { slug: 'regulacje', label: 'Regulacje', href: '/kategoria/regulacje' },
-  { slug: 'rynek', label: 'Rynek', href: '/kategoria/rynek' },
-  { slug: 'analiza-wideo', label: 'Analiza Wideo', href: '/kategoria/analiza-wideo' },
-  { slug: 'bezpieczenstwo', label: 'Bezpieczeństwo', href: '/kategoria/bezpieczenstwo' },
-  { slug: 'edukacja', label: 'Edukacja', href: '/kategoria/edukacja' },
+  { slug: 'wszystko',        label: 'Wszystko',        href: '/' },
+  { slug: 'chrzescijanstwo', label: 'Chrześcijaństwo', href: '/kategoria/chrzescijanstwo/' },
+  { slug: 'wiadomosci',      label: 'Wiadomości',      href: '/kategoria/wiadomosci/' },
+  { slug: 'usa',             label: 'Świat',           href: '/kategoria/usa/' },
+  { slug: 'art-design',      label: 'Kultura',         href: '/kategoria/art-design/' },
 ]
 
 interface CategoryFilterProps {
@@ -20,7 +16,7 @@ export default function CategoryFilter({
   activeCategory = 'wszystko',
 }: CategoryFilterProps) {
   return (
-    <section className="mb-8">
+    <section className="mb-10">
       <div className="flex flex-wrap gap-2">
         {categories.map((cat) => {
           const isActive = activeCategory === cat.slug
@@ -28,10 +24,10 @@ export default function CategoryFilter({
             <Link
               key={cat.slug}
               href={cat.href}
-              className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all ${
+              className={`px-4 py-2 font-sans text-xs uppercase tracking-[0.08em] font-semibold border transition-colors ${
                 isActive
-                  ? 'bg-accent text-background border-accent'
-                  : 'bg-card text-text-secondary border-border hover:border-accent/30 hover:text-text-primary'
+                  ? 'bg-ink text-paper border-ink'
+                  : 'bg-paper text-graphite border-rule hover:border-oxblood hover:text-oxblood'
               }`}
             >
               {cat.label}

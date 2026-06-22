@@ -21,42 +21,30 @@ export function formatDate(dateString: string): string {
   return `${day} ${month} ${year}`
 }
 
+/**
+ * Category color classes — all in oxblood/parchment palette.
+ * Consistent restraint per Council guidance ("oszczędnie, dyskretnie").
+ * Backgrounds use parchment tints, borders use rule color, text uses oxblood.
+ */
 export function getCategoryColor(category: string): string {
-  const colors: Record<string, string> = {
-    bitcoin: 'bg-orange-500/20 text-orange-400 border-orange-500/30',
-    ethereum: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-    defi: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
-    regulacje: 'bg-red-500/20 text-red-400 border-red-500/30',
-    rynek: 'bg-green-500/20 text-green-400 border-green-500/30',
-    nft: 'bg-pink-500/20 text-pink-400 border-pink-500/30',
-    altcoiny: 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
-    technologia: 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30',
-    'analiza-wideo': 'bg-red-600/20 text-red-300 border-red-600/30',
-    'regulacje-pl': 'bg-red-500/20 text-red-400 border-red-500/30',
-    'regulacje-eu': 'bg-red-500/20 text-red-400 border-red-500/30',
-    'bezpieczenstwo': 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
-    'edukacja': 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30',
+  // One unified style — premium publication doesn't color-code categories
+  // with rainbow palettes. Subtle differentiation via subtle bg shift only.
+  const tints: Record<string, string> = {
+    'chrzescijanstwo': 'bg-parchment text-oxblood border-rule',
+    'wiadomosci':      'bg-parchment text-ink border-rule',
+    'usa':             'bg-parchment text-ink border-rule',
+    'art-design':      'bg-parchment text-forest border-rule',
   }
-  return colors[category.toLowerCase()] || 'bg-gray-500/20 text-gray-400 border-gray-500/30'
+  return tints[category.toLowerCase()] || 'bg-parchment text-sepia border-rule'
 }
 
 export function getCategoryLabel(category: string): string {
   const labels: Record<string, string> = {
-    bitcoin: 'Bitcoin',
-    ethereum: 'Ethereum',
-    defi: 'DeFi',
-    regulacje: 'Regulacje',
-    rynek: 'Rynek',
-    nft: 'NFT',
-    altcoiny: 'Altcoiny',
-    technologia: 'Technologia',
-    wszystko: 'Wszystko',
-    'analiza-wideo': 'Analiza Wideo',
-    'regulacje-pl': 'Regulacje PL',
-    'regulacje-eu': 'Regulacje EU',
-    mining: 'Mining',
-    'bezpieczenstwo': 'Bezpieczeństwo',
-    'edukacja': 'Edukacja',
+    'chrzescijanstwo': 'Chrześcijaństwo',
+    'wiadomosci':      'Wiadomości',
+    'usa':             'Świat',
+    'art-design':      'Kultura',
+    'wszystko':        'Wszystko',
   }
   return labels[category.toLowerCase()] || category
 }
