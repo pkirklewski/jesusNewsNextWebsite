@@ -1,83 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Lora:ital,wght@0,400;0,500;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Body / global */
+/* =====================================================================
+   JesusNews — premium editorial design system
+   Inspired by: Plough Quarterly, Aeon, Dwutygodnik, First Things
+   Per LLM Council design audit 2026-06-22
+   ===================================================================== */
+
 html, body {
-  background-color: #f5f1ea;
-  color: #17233A;
+  background-color: #FAFAF8;       /* paper */
+  color: #2D2D2D;                  /* graphite */
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.0625rem;            /* 17px — magazine body */
+  line-height: 1.75;               /* generous, magazine-tier */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
 }
 
-/* Custom scrollbar — warm tones */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #fbf6ec; }
-::-webkit-scrollbar-thumb { background: #b8923e; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #D6B25E; }
-
-/* Smooth transitions */
-* {
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
+/* Display + headline fonts — Cormorant Garamond (XVI-century echo) */
+h1, h2, .display {
+  font-family: 'Cormorant Garamond', Garamond, Georgia, serif;
+  font-weight: 600;
+  color: #1C1C1E;                  /* ink */
+  letter-spacing: -0.015em;
+  line-height: 1.15;
 }
 
-/* Article content typography — readable serif body, navy headings */
-.article-content h2 {
-  @apply font-serif text-2xl font-bold text-navy mt-8 mb-4;
+h3 {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 700;
+  color: #1C1C1E;
+  line-height: 1.35;
 }
 
-.article-content h3 {
-  @apply font-serif text-xl font-semibold text-navy mt-6 mb-3;
-}
-
-.article-content p {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 17px;
-  line-height: 1.7;
-  color: #17233A;
+/* Body paragraphs */
+p {
   margin-bottom: 1rem;
 }
 
+a {
+  color: #803A3C;                  /* oxblood */
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+  transition: opacity 0.18s ease;
+}
+a:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+/* Custom scrollbar — minimal, warm */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #F2F0EB; }
+::-webkit-scrollbar-thumb { background: #DCD8D0; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: #6B6560; }
+
+/* Smooth transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 180ms;
+}
+
+/* =====================================================================
+   UI / Nav / Meta — Source Sans 3 (clean humanist sans)
+   ===================================================================== */
+nav, .ui-text, .meta, button, .btn {
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+}
+
+.eyebrow {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #803A3C;                  /* oxblood for category eyebrows */
+}
+
+.meta {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.8125rem;
+  color: #6B6560;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+}
+
+/* =====================================================================
+   Article reading column — typography excellence
+   ===================================================================== */
+.article-content {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.0625rem;            /* 17px body */
+  line-height: 1.75;
+  color: #2D2D2D;
+  max-width: 68ch;                 /* optimal reading width */
+}
+
+.article-content h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.75rem;              /* 28px */
+  font-weight: 600;
+  color: #1C1C1E;
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.article-content h3 {
+  font-family: 'Lora', serif;
+  font-size: 1.25rem;              /* 20px */
+  font-weight: 700;
+  color: #1C1C1E;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.article-content p {
+  margin-bottom: 1.25rem;
+}
+
+.article-content p:first-of-type::first-letter {
+  /* Drop cap on lead paragraph — magazine-style */
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.75rem;
+  font-weight: 700;
+  float: left;
+  line-height: 0.85;
+  margin: 0.15em 0.12em 0 0;
+  color: #1C1C1E;
+}
+
 .article-content strong {
-  @apply text-navy font-semibold;
+  color: #1C1C1E;
+  font-weight: 700;
 }
 
 .article-content em {
-  @apply italic;
-  color: #6b6b6b;
-}
-
-.article-content a {
-  @apply text-accent hover:underline;
+  font-style: italic;
+  color: #2D2D2D;
 }
 
 .article-content blockquote {
-  @apply border-l-4 border-accent pl-6 py-3 my-6 italic;
-  background-color: #fbf6ec;
-  color: #6b6b6b;
+  border-left: 3px solid #803A3C;  /* oxblood rule */
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  font-size: 1.125rem;
+  color: #6B6560;
+  background: transparent;
 }
 
 .article-content img {
-  @apply rounded-lg my-6 mx-auto;
+  margin: 2rem auto;
   max-width: 100%;
   height: auto;
 }
 
 .article-content ul, .article-content ol {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  line-height: 1.7;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   padding-left: 1.5rem;
-  color: #17233A;
+}
+.article-content ul li { margin-bottom: 0.5rem; list-style: disc; }
+.article-content ol li { margin-bottom: 0.5rem; list-style: decimal; }
+
+/* Lead paragraph emphasis */
+.article-content p:first-of-type {
+  font-size: 1.1875rem;            /* 19px lead */
+  line-height: 1.7;
 }
 
-.article-content ul li { margin-bottom: 0.5rem; list-style-type: disc; }
-.article-content ol li { margin-bottom: 0.5rem; list-style-type: decimal; }
+/* =====================================================================
+   Component utilities
+   ===================================================================== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #803A3C;
+  color: #FAFAF8;
+  padding: 0.875rem 1.5rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+  border: 0;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #9C4A4D;
+  text-decoration: none;
+}
 
-/* Lead paragraph (first <p> in article-content) — slightly larger */
-.article-content p:first-of-type {
-  font-size: 19px;
-  font-weight: 500;
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #1C1C1E;
+  padding: 0.875rem 1.5rem;
+  border: 1px solid #DCD8D0;
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: 0.04em;
+}
+.btn-ghost:hover {
+  border-color: #803A3C;
+  color: #803A3C;
+  text-decoration: none;
+}
+
+.rule {
+  border: 0;
+  border-top: 1px solid #DCD8D0;
+  margin: 3rem 0;
+}
+
+.rule-thick {
+  border: 0;
+  border-top: 2px solid #1C1C1E;
+  margin: 2rem 0 1rem 0;
+  max-width: 3rem;
+}
+
+/* Premium card — flat, bordered, sharp edges (no border-radius) */
+.editorial-card {
+  background: #FAFAF8;
+  border: 1px solid #DCD8D0;
+  padding: 0;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.editorial-card:hover {
+  transform: translateY(-2px);
+  border-color: #803A3C;
+}
+
+.section-spacing {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+@media (min-width: 1024px) {
+  .section-spacing {
+    margin-top: 6rem;
+    margin-bottom: 6rem;
+  }
 }

@@ -1,75 +1,65 @@
 import Link from 'next/link'
-import { Heart } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="bg-navy text-white/90 mt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-parchment border-t border-rule mt-24">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Brand + mission */}
-          <div>
-            <div className="text-2xl font-bold tracking-tight mb-3">
-              <span className="text-white">JESUSNEWS</span>
-              <span className="text-accent-gold-warm">.PL</span>
+          <div className="md:col-span-5">
+            <div className="font-display text-2xl font-bold text-ink leading-tight">
+              JesusNews<span className="text-oxblood">.pl</span>
             </div>
-            <p className="text-sm text-white/70 leading-relaxed">
-              Codzienne wiadomości chrześcijańskie z perspektywy Słowa Bożego.
-              Newsletter o 7:00 rano. Bezpłatnie.
+            <div className="text-[10px] uppercase tracking-[0.18em] text-sepia mt-1 font-sans">
+              Codzienna publikacja chrześcijańska
+            </div>
+            <hr className="rule-thick mt-6 mb-6" />
+            <p className="font-serif text-base text-graphite leading-relaxed max-w-md">
+              Codzienne rozważanie Słowa Bożego — krótki werset, refleksja, modlitwa,
+              jedna dobra wiadomość ze świata wiary. Bezpłatnie, o 7:00 rano.
             </p>
+            <Link href="/newsletter/" className="btn-ghost mt-6">
+              Zasubskrybuj newsletter
+            </Link>
           </div>
 
-          {/* Quick links */}
-          <div>
-            <h3 className="text-sm font-semibold text-accent-gold-warm mb-3 uppercase tracking-wider">
-              Linki
-            </h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/" className="hover:text-accent-gold-warm transition-colors">
-                  Strona główna
-                </Link>
-              </li>
-              <li>
-                <Link href="/newsletter/" className="hover:text-accent-gold-warm transition-colors">
-                  Zasubskrybuj newsletter
-                </Link>
-              </li>
-              <li>
-                <Link href="/o-nas/" className="hover:text-accent-gold-warm transition-colors">
-                  O nas
-                </Link>
-              </li>
-              <li>
-                <Link href="/polityka-prywatnosci/" className="hover:text-accent-gold-warm transition-colors">
-                  Polityka prywatności
-                </Link>
-              </li>
-              <li>
-                <Link href="/regulamin/" className="hover:text-accent-gold-warm transition-colors">
-                  Regulamin
-                </Link>
-              </li>
+          {/* Linki */}
+          <div className="md:col-span-3">
+            <h3 className="eyebrow mb-4">Strona</h3>
+            <ul className="space-y-2.5 font-sans text-[0.9375rem] text-graphite">
+              <li><Link href="/" className="hover:text-oxblood">Strona główna</Link></li>
+              <li><Link href="/kategoria/chrzescijanstwo/" className="hover:text-oxblood">Chrześcijaństwo</Link></li>
+              <li><Link href="/kategoria/wiadomosci/" className="hover:text-oxblood">Wiadomości</Link></li>
+              <li><Link href="/kategoria/usa/" className="hover:text-oxblood">Świat</Link></li>
+              <li><Link href="/newsletter/" className="hover:text-oxblood">Newsletter</Link></li>
+              <li><Link href="/o-nas/" className="hover:text-oxblood">O nas</Link></li>
+              <li><Link href="/polityka-prywatnosci/" className="hover:text-oxblood">Polityka prywatności</Link></li>
+              <li><Link href="/regulamin/" className="hover:text-oxblood">Regulamin</Link></li>
             </ul>
           </div>
 
-          {/* Wesprzyj nas */}
-          <div>
-            <h3 className="text-sm font-semibold text-accent-gold-warm mb-3 uppercase tracking-wider flex items-center gap-1">
-              <Heart className="w-4 h-4" /> Wspieramy
-            </h3>
-            <p className="text-sm text-white/70 leading-relaxed mb-3">
-              Fundacja <span className="font-semibold">Ulica Swoje Wie</span><br />
+          {/* Wesprzyj */}
+          <div className="md:col-span-4">
+            <h3 className="eyebrow mb-4">Wspieramy</h3>
+            <p className="font-display text-xl font-semibold text-ink leading-snug mb-2">
+              Fundacja Ulica Swoje Wie
+            </p>
+            <p className="meta mb-4 normal-case tracking-normal">
               KRS 0000498479
             </p>
-            <p className="text-sm text-white/70 leading-relaxed">
+            <p className="font-serif text-[0.9375rem] text-graphite leading-relaxed">
               Przekaż 1,5% podatku — to Cię nic nie kosztuje,
               a dla nich to konkretna pomoc.
             </p>
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-white/10 text-center text-xs text-white/60">
-          © {new Date().getFullYear()} JesusNews.pl · Pismo Święte jest najwyższym autorytetem
+        <hr className="rule mt-12 mb-6" />
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs text-sepia font-sans">
+          <div>© {new Date().getFullYear()} JesusNews.pl</div>
+          <div className="italic font-serif text-[13px]">
+            Pismo Święte jest najwyższym autorytetem
+          </div>
         </div>
       </div>
     </footer>

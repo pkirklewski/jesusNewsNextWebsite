@@ -2,57 +2,55 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, Mail } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 const categories = [
   { slug: 'chrzescijanstwo', label: 'Chrześcijaństwo' },
   { slug: 'wiadomosci', label: 'Wiadomości' },
-  { slug: 'usa', label: 'USA' },
+  { slug: 'usa', label: 'Świat' },
 ]
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <header className="bg-navy text-white shadow-lg sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="text-2xl font-bold tracking-tight">
-              <span className="text-white">JESUSNEWS</span>
-              <span className="text-accent-gold-warm">.PL</span>
+    <header className="sticky top-0 z-40 bg-paper/95 backdrop-blur-md border-b border-rule">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo — Cormorant Garamond, refined */}
+          <Link href="/" className="group">
+            <div className="font-display text-2xl lg:text-[1.75rem] font-bold tracking-tight text-ink leading-none">
+              JesusNews<span className="text-oxblood">.pl</span>
+            </div>
+            <div className="hidden lg:block text-[10px] uppercase tracking-[0.18em] text-sepia mt-1 font-sans">
+              Codzienna publikacja chrześcijańska
             </div>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-8">
             {categories.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/kategoria/${cat.slug}/`}
-                className="text-sm font-medium text-white/90 hover:text-accent-gold-warm transition-colors"
+                className="font-sans text-sm font-normal uppercase tracking-[0.08em] text-graphite hover:text-oxblood transition-colors"
               >
                 {cat.label}
               </Link>
             ))}
             <Link
               href="/newsletter/"
-              className="flex items-center gap-1.5 text-sm font-medium text-white/90 hover:text-accent-gold-warm transition-colors"
+              className="font-sans text-sm font-normal uppercase tracking-[0.08em] text-graphite hover:text-oxblood transition-colors"
             >
-              <Mail className="w-4 h-4" />
               Newsletter
             </Link>
             <Link
               href="/o-nas/"
-              className="text-sm font-medium text-white/90 hover:text-accent-gold-warm transition-colors"
+              className="font-sans text-sm font-normal uppercase tracking-[0.08em] text-graphite hover:text-oxblood transition-colors"
             >
               O nas
             </Link>
-            <Link
-              href="/newsletter/"
-              className="bg-accent-gold-warm hover:bg-accent text-navy font-semibold px-4 py-2 rounded-lg text-sm transition-colors"
-            >
+            <Link href="/newsletter/" className="btn-primary">
               Zasubskrybuj
             </Link>
           </nav>
@@ -60,7 +58,7 @@ export default function Header() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden text-white p-2"
+            className="lg:hidden text-ink p-2"
             aria-label="Menu"
           >
             {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -69,13 +67,13 @@ export default function Header() {
 
         {/* Mobile nav */}
         {mobileOpen && (
-          <nav className="lg:hidden pb-4 space-y-2 border-t border-white/10 pt-4">
+          <nav className="lg:hidden pb-6 space-y-1 border-t border-rule pt-4">
             {categories.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/kategoria/${cat.slug}/`}
                 onClick={() => setMobileOpen(false)}
-                className="block text-base font-medium text-white/90 hover:text-accent-gold-warm py-1"
+                className="block font-sans text-sm uppercase tracking-[0.08em] text-graphite hover:text-oxblood py-3"
               >
                 {cat.label}
               </Link>
@@ -83,21 +81,21 @@ export default function Header() {
             <Link
               href="/newsletter/"
               onClick={() => setMobileOpen(false)}
-              className="block text-base font-medium text-white/90 hover:text-accent-gold-warm py-1"
+              className="block font-sans text-sm uppercase tracking-[0.08em] text-graphite hover:text-oxblood py-3"
             >
-              📧 Newsletter
+              Newsletter
             </Link>
             <Link
               href="/o-nas/"
               onClick={() => setMobileOpen(false)}
-              className="block text-base font-medium text-white/90 hover:text-accent-gold-warm py-1"
+              className="block font-sans text-sm uppercase tracking-[0.08em] text-graphite hover:text-oxblood py-3"
             >
               O nas
             </Link>
             <Link
               href="/newsletter/"
               onClick={() => setMobileOpen(false)}
-              className="block bg-accent-gold-warm hover:bg-accent text-navy font-semibold px-4 py-2 rounded-lg text-sm text-center mt-3"
+              className="btn-primary mt-4 w-full justify-center"
             >
               Zasubskrybuj newsletter
             </Link>

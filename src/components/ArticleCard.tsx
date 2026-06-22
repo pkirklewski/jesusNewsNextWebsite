@@ -1,45 +1,24 @@
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
-import CategoryBadge from './CategoryBadge'
 
 interface ArticleCardProps {
   title: string
   slug: string
   date: string
   categories: string[]
-  image: string
+  image?: string
   image_alt?: string
   meta_description: string
-  featured?: boolean
+  variant?: 'grid' | 'featured'
+  featured?: boolean  // legacy
   eager?: boolean
 }
 
-function ArticleImage({
-  image,
-  alt,
-  loading = 'lazy',
-  className,
-}: {
-  image: string
-  alt: string
-  loading?: 'eager' | 'lazy'
-  className?: string
-}) {
-  const avifSrc = image.replace('.webp', '.avif')
-
-  return (
-    <picture>
-      <source srcSet={avifSrc} type="image/avif" />
-      <source srcSet={image} type="image/webp" />
-      <img
-        src={image}
-        alt={alt}
-        loading={loading}
-        decoding="async"
-        className={className}
-      />
-    </picture>
-  )
+const CAT_LABELS: Record<string, string> = {
+  'chrzescijanstwo': 'Chrześcijaństwo',
+  'wiadomosci': 'Wiadomości',
+  'usa': 'Świat',
+  'art-design': 'Kultura',
 }
 
 export default function ArticleCard({
@@ -50,80 +29,48 @@ export default function ArticleCard({
   image,
   image_alt,
   meta_description,
-  featured = false,
-  eager = false,
+  variant = 'grid',
+  eager,
 }: ArticleCardProps) {
-  const altText = image_alt || title
-
-  if (featured) {
-    return (
-      <Link href={`/artykul/${slug}`} className="block group" role="article">
-        <div className="article-card relative rounded-2xl overflow-hidden border border-border hover:border-accent/30 bg-card min-h-[400px] lg:min-h-[500px]">
-          {/* Background image */}
-          <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-accent-blue/5">
-            <ArticleImage
-              image={image}
-              alt={altText}
-              loading="eager"
-              className="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 transition-opacity duration-500"
-            />
-            <div className="gradient-overlay absolute inset-0" />
-          </div>
-
-          {/* Content */}
-          <div className="relative h-full flex flex-col justify-end p-6 lg:p-8">
-            <div className="flex flex-wrap gap-2 mb-3">
-              {categories.map((cat) => (
-                <CategoryBadge key={cat} category={cat} clickable={false} />
-              ))}
-            </div>
-            <h2 className="text-2xl lg:text-3xl font-bold text-text-primary mb-3 group-hover:text-accent transition-colors leading-tight">
-              {title}
-            </h2>
-            <p className="text-text-secondary text-sm lg:text-base mb-4 line-clamp-2">
-              {meta_description}
-            </p>
-            <time className="text-text-secondary/60 text-sm">
-              {formatDate(date)}
-            </time>
-          </div>
-        </div>
-      </Link>
-    )
-  }
+  const primaryCat = categories?.[0] || 'wiadomosci'
+  const catLabel = CAT_LABELS[primaryCat] || 'Artykuł'
 
   return (
-    <Link href={`/artykul/${slug}`} className="block group" role="article">
-      <div className="article-card rounded-xl overflow-hidden border border-border hover:border-accent/30 bg-card h-full flex flex-col">
+    <article className="group flex flex-col h-full">
+      <Link href={`/artykul/${slug}/`} className="block">
         {/* Image */}
-        <div className="relative h-48 bg-gradient-to-br from-accent/10 to-accent-blue/10 overflow-hidden">
-          <ArticleImage
-            image={image}
-            alt={altText}
-            loading={eager ? 'eager' : 'lazy'}
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent" />
-          <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
-            {categories.map((cat) => (
-              <CategoryBadge key={cat} category={cat} clickable={false} />
-            ))}
+        {image && (
+          <div className="mb-5 overflow-hidden">
+            <img
+              src={image}
+              alt={image_alt || title}
+              loading={eager ? 'eager' : 'lazy'}
+              decoding="async"
+              className="w-full aspect-[16/9] object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+            />
           </div>
-        </div>
+        )}
 
-        {/* Content */}
-        <div className="p-4 flex flex-col flex-1">
-          <h3 className="text-lg font-semibold text-text-primary mb-2 group-hover:text-accent transition-colors leading-snug line-clamp-2">
-            {title}
-          </h3>
-          <p className="text-text-secondary text-sm mb-3 line-clamp-2 flex-1">
-            {meta_description}
-          </p>
-          <time className="text-text-secondary/60 text-xs">
-            {formatDate(date)}
-          </time>
+        {/* Category eyebrow */}
+        <div className="eyebrow mb-3">{catLabel}</div>
+
+        {/* Title */}
+        <h2 className="font-display text-[1.5rem] lg:text-[1.625rem] font-semibold text-ink leading-[1.18] tracking-[-0.012em] mb-3 group-hover:text-oxblood transition-colors">
+          {title}
+        </h2>
+
+        {/* Description */}
+        <p className="font-serif text-[15px] text-graphite leading-[1.65] line-clamp-3 mb-4">
+          {meta_description}
+        </p>
+      </Link>
+
+      {/* Date meta */}
+      <div className="mt-auto pt-3 border-t border-rule">
+        <div className="meta uppercase tracking-[0.08em]">
+          {formatDate(date)}
         </div>
       </div>
-    </Link>
+    </article>
   )
 }
