@@ -88,3 +88,11 @@ Typography: Inter (sans, UI) + Georgia (serif, article body)
 - ✅ All pages prerendered (no SSR needed)
 - ⏳ Cloudflare Pages deploy (manual step by Piotr)
 - ⏳ Custom domain test.jesusnews.pl (DNS in OVH)
+
+## Deployment
+
+Auto-deployed to Cloudflare Pages on every `master` push.
+
+**Live URLs:**
+- Production: `https://jesusnewsnextwebsite.pages.dev`
+- (planned) Custom: `https://test.jesusnews.pl`
