@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Body / global */
+html, body {
+  background-color: #f5f1ea;
+  color: #17233A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar — warm tones */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #fbf6ec; }
+::-webkit-scrollbar-thumb { background: #b8923e; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #D6B25E; }
+
+/* Smooth transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Article content typography — readable serif body, navy headings */
+.article-content h2 {
+  @apply font-serif text-2xl font-bold text-navy mt-8 mb-4;
+}
+
+.article-content h3 {
+  @apply font-serif text-xl font-semibold text-navy mt-6 mb-3;
+}
+
+.article-content p {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #17233A;
+  margin-bottom: 1rem;
+}
+
+.article-content strong {
+  @apply text-navy font-semibold;
+}
+
+.article-content em {
+  @apply italic;
+  color: #6b6b6b;
+}
+
+.article-content a {
+  @apply text-accent hover:underline;
+}
+
+.article-content blockquote {
+  @apply border-l-4 border-accent pl-6 py-3 my-6 italic;
+  background-color: #fbf6ec;
+  color: #6b6b6b;
+}
+
+.article-content img {
+  @apply rounded-lg my-6 mx-auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.article-content ul, .article-content ol {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  color: #17233A;
+}
+
+.article-content ul li { margin-bottom: 0.5rem; list-style-type: disc; }
+.article-content ol li { margin-bottom: 0.5rem; list-style-type: decimal; }
+
+/* Lead paragraph (first <p> in article-content) — slightly larger */
+.article-content p:first-of-type {
+  font-size: 19px;
+  font-weight: 500;
+}

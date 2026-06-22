@@ -1,0 +1,30 @@
+# Global security headers
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com https://img.youtube.com https://coin-images.coingecko.com https://assets.coingecko.com; connect-src 'self' https://api.coingecko.com https://cloudflareinsights.com https://kryptopuls-api.kirklewskis.workers.dev; form-action 'self'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'none'; object-src 'none'; base-uri 'self'
+  X-DNS-Prefetch-Control: on
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+# Images - cache for 1 year (content-hashed by filename)
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Static assets (JS, CSS, fonts) - cache for 1 year (content-hashed by Next.js)
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML pages - short cache, revalidate
+/*.html
+  Cache-Control: public, max-age=300, must-revalidate
+
+/
+  Cache-Control: public, max-age=300, must-revalidate
+
+/artykul/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/kategoria/*
+  Cache-Control: public, max-age=300, must-revalidate
